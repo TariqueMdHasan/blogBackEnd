@@ -212,6 +212,28 @@ const getCommentByUserId = async(req, res) => {
 }
 
 
+// number of total comments by blogId
+const getCommentCountByBlogId = async(req, res) => {
+    try{
+        const blogId = req.params.id
+        if(!blogId){
+            return res.status(400).json({ message: 'Please provide blog id' })
+        }
+        const comments = await Comment.find({ blog: blogId })
+        if(!comments){
+            return res.status(404).json({ message: 'Comments not found' })
+        }
+        return res.status(200).json({
+            message: 'Comments found',
+            count: comments.length
+        })
+
+    }catch(error){
+        console.log(error, 'error in getting comment count by blogId')
+        return res.status(500).json({ message: 'Internal Server Error' })
+    }
+}
+
 
 
 
@@ -221,5 +243,6 @@ module.exports = {
     deleteComment, 
     getCommentById, 
     getCommentByBlogId,
-    getCommentByUserId
+    getCommentByUserId,
+    getCommentCountByBlogId
 }
