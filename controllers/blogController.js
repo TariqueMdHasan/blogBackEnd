@@ -283,6 +283,27 @@ const getAllBlogsByMostCommented = async(req, res) => {
 }
 
 
+// get all blog by user id
+const getAllBlogsByUserId = async(req, res) => {
+    try{
+        const userId = req.params.id;
+        const blogs = await Blog.find({ author: userId });
+        if(!blogs){
+            return res.status(404).json({ message: 'No blogs found' });
+        }
+
+        return res.status(200).json({
+            message: 'All blogs by user id found',
+            blogs
+        })
+
+    }catch(error){
+        console.log(error, 'Error getting all blogs by user id');
+        return res.status(500).json({ message: 'error in getting all blogs by user id'})
+    }
+}
+
+
 
 
 
@@ -296,7 +317,8 @@ module.exports = {
     getAllBlogsByUser,
     getAllBlogsByRecent,
     getAllBlogsByCatagory,
-    getAllBlogsByMostCommented
+    getAllBlogsByMostCommented,
+    getAllBlogsByUserId
 }
 
 

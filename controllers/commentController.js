@@ -188,6 +188,31 @@ const getCommentByBlogId = async(req, res) => {
 
 
 
+// get comment by userId
+const getCommentByUserId = async(req, res) => {
+    try{
+        const userId = req.params.id
+        if(!userId){
+            return res.status(400).json({ message: 'Please provide user id' })
+        }
+
+        const comments = await Comment.find({ user: userId })
+        if(!comments){
+            return res.status(404).json({ message: 'Comments not found' })
+        }
+        return res.status(200).json({
+            message: 'Comments found',
+            comments: comments
+        })
+
+    }catch(error){
+        console.log(error, 'error in getting comment by userId')
+        return res.status(500).json({ message: 'Internal Server Error' })
+    }
+}
+
+
+
 
 
 module.exports = { 
@@ -195,5 +220,6 @@ module.exports = {
     updateComment, 
     deleteComment, 
     getCommentById, 
-    getCommentByBlogId 
+    getCommentByBlogId,
+    getCommentByUserId
 }

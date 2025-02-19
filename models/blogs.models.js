@@ -29,7 +29,9 @@ const blogSchema = mongoose.Schema(
                 'Entertainment',
                 'Others',
             ],
-            required: [true, 'Please select a category']
+            required: [true, 'Please select a category'],
+            default: 'Others'
+
         },
         author: {
             type: mongoose.Schema.Types.ObjectId,

@@ -11,7 +11,8 @@ const {
     getAllBlogsByUser,
     getAllBlogsByRecent,
     getAllBlogsByCatagory,
-    getAllBlogsByMostCommented
+    getAllBlogsByMostCommented,
+    getAllBlogsByUserId
 } = require('../controllers/blogController.js')
 
 router.post('/create', protect, uploadBlogImage.single('blogImages'), createBlog);
@@ -20,6 +21,7 @@ router.delete('/delete/:id', protect, deleteBlog);
 router.get('/myBlogs', protect, getAllBlogsByUser);
 
 router.get('/mostCommented', getAllBlogsByMostCommented);
+router.get('/userBlog/:id', getAllBlogsByUserId);
 router.get('/recent', getAllBlogsByRecent);
 router.get('/catagory/:catagory', getAllBlogsByCatagory);
 
