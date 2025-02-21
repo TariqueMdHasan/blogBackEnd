@@ -172,7 +172,7 @@ const getBlogById = async(req, res) => {
 // get all blogs
 const getAllBlogs = async(req, res) => {
     try{
-        const blogs = await Blog.find();
+        const blogs = await Blog.find().populate('author', 'name userName profilePicture');
         if(!blogs){
             return res.status(404).json({ message: 'No blogs found' });
         }
