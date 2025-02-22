@@ -193,15 +193,13 @@ const getAllBlogs = async(req, res) => {
 const getAllBlogsByUser = async(req, res) => {
     try{
         const author = req.user._id;
-        // if (!mongoose.Types.ObjectId.isValid(id)) {
-        //     return res.status(400).json({ message: 'Invalid blog ID' });
-        // }
         
         if(!author){
             return res.status(400).json({ message: 'Please login' });
         }
 
-        const blogs = await Blog.find({ author });
+        const blogs = await Blog.find({ author })
+        .populate('author', 'name userName profilePicture');
         if(!blogs){
             return res.status(404).json({ message: 'No blogs found' });
         }
