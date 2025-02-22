@@ -7,7 +7,8 @@ const {
     getCommentById, 
     getCommentByBlogId,
     getCommentByUserId,
-    getCommentCountByBlogId
+    getCommentCountByBlogId,
+    getCommentsByLoggedInUser
 } = require('../controllers/commentController.js')
 const protect = require('../middleware/authMiddleware.js')
 
@@ -18,6 +19,7 @@ router.delete('/delete/:id', protect, deleteComment)
 router.get('/count/:id', getCommentCountByBlogId)
 router.get('/user/:id', getCommentByUserId)
 router.get('/blog/:id', getCommentByBlogId) 
+router.get('/myComment', protect, getCommentsByLoggedInUser)
 router.get('/:id', getCommentById)
 
 
