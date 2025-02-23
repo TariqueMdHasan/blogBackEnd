@@ -4,7 +4,7 @@ const Blog = require('../models/blogs.models.js');
 const createBlog = async(req, res) => {
     try {
         // const { title, content, category, tags, author } = req.body;
-        const { title, content, catagory } = req.body;
+        const { title, content, category } = req.body;
 
         const author = req.user._id;
         if(!author){
@@ -12,8 +12,20 @@ const createBlog = async(req, res) => {
         }
         
 
-        if(!title || !content || !catagory){
-            return res.status(400).json({ message: 'Please fill all fields' });
+        // if(!title || !content || !catagory){
+        //     return res.status(400).json({ message: 'Please fill all fields' });
+        // }
+
+        if(!title){
+            return res.status(400).json({ message: 'Please fill all title' });
+        }
+
+        if(!content){
+            return res.status(400).json({ message: 'Please fill all content' });
+        }
+
+        if(!category){
+            return res.status(400).json({ message: 'Please fill all category' });
         }
 
 
@@ -27,7 +39,7 @@ const createBlog = async(req, res) => {
             title,
             content,
             blogImages,
-            catagory,
+            category,
             author
         });
         await newBlog.save();
@@ -38,7 +50,7 @@ const createBlog = async(req, res) => {
                 title: newBlog.title,
                 content: newBlog.content,
                 blogImages: newBlog.blogImages,
-                catagory: newBlog.catagory,
+                category: newBlog.category,
                 author: newBlog.author
             }
         });
@@ -54,7 +66,7 @@ const createBlog = async(req, res) => {
 // update blog
 const updateBlog = async(req, res) => {
     try{
-        const { title, content, catagory } = req.body;
+        const { title, content, category } = req.body;
         const author = req.user._id;
         const blogId = req.params.id;
         const blogImages = req.file ? req.file.path : null;
@@ -80,7 +92,7 @@ const updateBlog = async(req, res) => {
         blog.title = title || blog.title;
         blog.content = content || blog.content;
         blog.blogImages = blogImages || blog.blogImages;
-        blog.catagory = catagory || blog.catagory;
+        blog.category = category || blog.category;
         blog.updatedAt = Date.now();
         const updatedBlog = await blog.save();
         return res.status(200).json({
@@ -90,7 +102,7 @@ const updateBlog = async(req, res) => {
                 title: updatedBlog.title,
                 content: updatedBlog.content,
                 blogImages: updatedBlog.blogImages,
-                catagory: updatedBlog.catagory,
+                category: updatedBlog.category,
                 author: updatedBlog.author,
                 updatedAt: updatedBlog.updatedAt
             }
@@ -243,19 +255,19 @@ const getAllBlogsByRecent = async(req, res) => {
 // get all blogs by catagory
 const getAllBlogsByCatagory = async(req, res) => {
     try{
-        const catagory = req.params.catagory;
-        const blogs = await Blog.find({ catagory });
+        const category = req.params.category;
+        const blogs = await Blog.find({ category });
         if(!blogs){
             return res.status(404).json({ message: 'No blogs found' });
         }
 
         return res.status(200).json({
-            message: 'All blogs by catagory found',
+            message: 'All blogs by category found',
             blogs
         })
 
     }catch(error){
-        console.log(error, 'Error getting all blogs by catagory');
+        console.log(error, 'Error getting all blogs by category');
         return res.status(500).json({ message: 'error in getting all blogs by catagory'})
     }
 }

@@ -238,15 +238,16 @@ const getCommentCountByBlogId = async(req, res) => {
 // loggedIn user comments
 const getCommentsByLoggedInUser = async (req, res) => {
     try {
-        const userId = req.user.id; // Get logged-in user's ID
+        const userId = req.user._id; // Get logged-in user's ID
 
         if (!userId) {
             return res.status(400).json({ message: 'User not authenticated' });
         }
 
         const comments = await Comment.find({ user: userId })
-        .populate('user', 'name userName profilePicture');
+        // .populate('user', 'name userName profilePicture');
 
+        console.log(comments)
         if (!comments || comments.length === 0) {
             return res.status(404).json({ message: 'No comments found' });
         }

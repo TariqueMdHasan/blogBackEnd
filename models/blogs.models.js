@@ -14,7 +14,7 @@ const blogSchema = mongoose.Schema(
             type: String,
             required: [true, 'Please enter the image']
         },
-        catagory: {
+        category: {
             type: String,
             enum: [
                 'Technology',
