@@ -23,10 +23,6 @@ app.use(express.json());
 app.use(bodyparser.json());
 app.use(bodyparser.urlencoded({extended: true}));
 
-// app.post("/api/blog/create", (req, res) => {
-//     console.log(req.body); // Check if it’s a valid JSON object
-// });
-
 
 const PORT = process.env.PORT || 5000;
 
