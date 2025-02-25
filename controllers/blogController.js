@@ -10,11 +10,6 @@ const createBlog = async(req, res) => {
         if(!author){
             return res.status(400).json({ message: 'Please login' });
         }
-        
-
-        // if(!title || !content || !catagory){
-        //     return res.status(400).json({ message: 'Please fill all fields' });
-        // }
 
         if(!title){
             return res.status(400).json({ message: 'Please fill all title' });

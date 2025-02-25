@@ -27,15 +27,23 @@ const createComment = async (req, res) => {
             user: new mongoose.Types.ObjectId(userId), 
         })
         await comment.save();
+
+        const populatedComment = await Comment.findById(comment._id).populate(
+            'user',
+            'name userName profilePicture'
+        );
+
+
         return res.status(200).json({
             message: 'Comment created successfully',
-            // comment: {
-            //     text: comment.text,
-            //     blogId: comment.blogId,
-            //     userId: comment.userId
-            // }
-            comment
-        })
+            comment: populatedComment,
+        });
+
+
+        // return res.status(200).json({
+        //     message: 'Comment created successfully',
+        //     comment
+        // })
 
     }catch(error){
         console.log(error, 'error in creating comment')
