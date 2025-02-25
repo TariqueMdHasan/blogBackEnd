@@ -169,7 +169,7 @@ const getCommentByBlogId = async(req, res) => {
         if(!blogId){
             return res.status(400).json({ message: 'Please provide blog id' })
         }
-        const comments = await Comment.find({ blog: blogId })
+        const comments = await Comment.find({ blog: blogId }).populate('user', 'name userName profilePicture')
         if(!comments){
             return res.status(404).json({ message: 'Comments not found' })
         }

@@ -156,7 +156,7 @@ const getBlogById = async(req, res) => {
             return res.status(400).json({ message: 'Please provide blog id' });
         }
 
-        const blog = await Blog.findById(blogId);
+        const blog = await Blog.findById(blogId).populate('author', 'name userName profilePicture');
         if(!blog){
             return res.status(404).json({ message: 'Blog not found' });
         }
