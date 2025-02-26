@@ -256,7 +256,7 @@ const getCommentsByLoggedInUser = async (req, res) => {
         }
 
         const comments = await Comment.find({ user: userId })
-        // .populate('user', 'name userName profilePicture');
+        .populate('user', 'name userName profilePicture');
 
         console.log(comments)
         if (!comments || comments.length === 0) {

@@ -296,7 +296,8 @@ const getAllBlogsByMostCommented = async(req, res) => {
 const getAllBlogsByUserId = async(req, res) => {
     try{
         const userId = req.params.id;
-        const blogs = await Blog.find({ author: userId });
+        const blogs = await Blog.find({ author: userId })
+        .populate('author', 'name userName profilePicture');
         if(!blogs){
             return res.status(404).json({ message: 'No blogs found' });
         }
