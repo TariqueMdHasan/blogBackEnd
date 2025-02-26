@@ -258,7 +258,7 @@ const getCommentsByLoggedInUser = async (req, res) => {
         const comments = await Comment.find({ user: userId })
         .populate('user', 'name userName profilePicture');
 
-        console.log(comments)
+        
         if (!comments || comments.length === 0) {
             return res.status(404).json({ message: 'No comments found' });
         }
