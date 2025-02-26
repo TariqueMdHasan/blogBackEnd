@@ -1,5 +1,6 @@
 const Blog = require('../models/blogs.models.js');
 
+
 // create blog
 const createBlog = async(req, res) => {
     try {
@@ -226,6 +227,9 @@ const getAllBlogsByUser = async(req, res) => {
 
 
 
+
+
+
 // get all blogs by recent
 const getAllBlogsByRecent = async(req, res) => {
     try{
@@ -307,6 +311,34 @@ const getAllBlogsByUserId = async(req, res) => {
         return res.status(500).json({ message: 'error in getting all blogs by user id'})
     }
 }
+
+
+// user user blog by user id in params
+// const getAllBlogsByUserByParams = async(req, res) => {
+//     try{
+//         const author = req.params.id;
+        
+//         if(!author){
+//             return res.status(400).json({ message: 'Please provide user ID' });
+//         }
+
+//         const blogs = await Blog.findOne({ author })
+//         .populate('author', 'name userName profilePicture');
+//         if(!blogs || blogs.length === 0){
+//             return res.status(404).json({ message: 'No blogs found' });
+//         }
+
+//         return res.status(200).json({
+//             message: 'All blogs by user found',
+//             blogs
+//         })
+        
+
+//     }catch(error){
+//         console.log(error, 'Error getting all blogs by user');
+//         return res.status(500).json({ message: 'error in getting all blogs by user'})
+//     }
+// }
 
 
 

@@ -1,6 +1,7 @@
 const User = require('../models/users.models.js')
 const bcrypt = require('bcrypt')
 const  { generateToken }  = require('../utils/tokenGenVerify.js')
+const mongoose = require('mongoose')
 
 const registerUser = async ( req, res) => {
     const {name, email, userName, password } = req.body
@@ -174,4 +175,34 @@ const getUserData = async(req, res) => {
 }
 
 
-module.exports = {registerUser, loginUser, updateUser, deleteUser, getUserData}
+// get user data from params
+const getUserDataFromParams = async(req, res) => {
+    const { id } = req.params;;
+    if (!id || !mongoose.Types.ObjectId.isValid(id)) {
+        return res.status(400).json({ message: "Invalid user ID format" });
+    }
+    try{
+        const user = await User.findById(id)
+        if(!user){
+            return console.log("User not found")
+        }
+        return res.status(200).json({
+            user: {
+                _id: user._id,
+                name: user.name,
+                email: user.email,
+                userName: user.userName,
+                profilePicture: user.profilePicture,
+                bio: user.bio,
+            }})
+
+
+        
+    }catch(error){
+        console.error(error, 'Error fettching data')
+        return res.status(500).json({message: "Something went wrong while fetching data"})
+    }
+}
+
+
+module.exports = {registerUser, loginUser, updateUser, deleteUser, getUserData, getUserDataFromParams}
