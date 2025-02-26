@@ -91,11 +91,11 @@ const loginUser = async(req, res) => {
 }
 
 const updateUser = async(req, res) => {
-    const {name, email, userName, password } = req.body;
+    const {name, email, userName, password, bio } = req.body;
     const profilePicture = req.file ? req.file.path : null;
-    if(!name || !email || !userName || !password){
-        return res.status(400).json({message: 'Please fill the data'})
-    }
+    // if(!name || !email || !userName || !password){
+    //     return res.status(400).json({message: 'Please fill the data'})
+    // }
 
     try{
         const user = await User.findById(req.user._id)
@@ -108,6 +108,7 @@ const updateUser = async(req, res) => {
         if(name) user.name = name;
         if(password) user.password = password;
         if(profilePicture) user.profilePicture = profilePicture;
+        if(bio) user.bio = bio;
 
         const updatedUser = await user.save();
 
@@ -119,6 +120,7 @@ const updateUser = async(req, res) => {
                 email: updatedUser.email,
                 userName: updatedUser.userName,
                 profilePicture: updatedUser.profilePicture,
+                bio: updatedUser.bio,
             }
         })
 
@@ -161,6 +163,7 @@ const getUserData = async(req, res) => {
                 email: user.email,
                 userName: user.userName,
                 profilePicture: user.profilePicture,
+                bio: user.bio,
             }
         })
     }catch(error){
