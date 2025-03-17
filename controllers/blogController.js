@@ -159,13 +159,14 @@ const getBlogById = async(req, res) => {
 
         return res.status(200).json({
             message: 'Blog found',
-            blog: {
-                _id: blog._id,
-                title: blog.title,
-                content: blog.content,
-                blogImages: blog.blogImages,
-                author: blog.author
-            }
+            // blog: {
+            //     _id: blog._id,
+            //     title: blog.title,
+            //     content: blog.content,
+            //     blogImages: blog.blogImages,
+            //     author: blog.author
+            // }
+            blog
         })
 
         
